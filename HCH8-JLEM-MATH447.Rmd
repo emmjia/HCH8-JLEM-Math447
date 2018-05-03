@@ -1,0 +1,92 @@
+---
+title: 'Chapter 8 (Edition 8): 8.1, 8.10, 8.12, 8.14, 8.51'
+author: "Jeremy Ling & Emmanuel Mejia"
+date: "May 10, 2018"
+output: pdf_document
+---
+
+##8.1
+
+\textbf{Suppose that in the chemical process development
+experiment described in Problem 6.7, it was only possible to run
+a one-half fraction of the $2^4$ design. Construct the design and
+perform the statistical analysis, using the data from replicate I.}
+
+##8.10
+
+\textbf{An article by J. J. Pignatiello Jr. and J. S. Ramberg
+in the Journal of Quality Technology (Vol. 17, 1985, pp.
+198-206) describes the use of a replicated fractional factorial
+to investigate the effect of five factors on the free height of
+leaf springs used in an automotive application. The factors are
+A = furnace temperature, B = heating time, C = transfer
+time, D = hold down time, and E = quench oil temperature.
+The data are shown in Table P8.1}
+
+##8.12
+
+\textbf{Consider the leaf spring experiment in Problem 8.7.
+Suppose that factor E (quench oil temperature) is very difficult
+to control during manufacturing. Where would you set factors
+A, B, C, and D to reduce variability in the free height as much
+as possible regardless of the quench oil temperature used?}
+
+##8.14
+
+\textbf{Consider the $2^5$ design in Problem 6.24. Suppose that
+only a one-half fraction could be run. Furthermore, two days
+were required to take the 16 observations, and it was necessary
+to confound the $2^{5-1}$ design in two blocks. Construct the
+design and analyze the data.}
+
+##8.51
+
+\textbf{A 16-run fractional factorial experiment in nine factors
+was conducted by Chrysler Motors Engineering and
+described in the article "Sheet Molded Compound Process
+Improvement," by P. I. Hsieh and D. E. Goodwin (Fourth
+Symposium on Taguchi Methods, American Supplier Institute,
+Dearborn, MI, 1986, pp. 13-21). The purpose was to reduce
+the number of defects in the finish of sheet-molded grill opening
+panels. The design, and the resulting number of defects,
+c, observed on each run, is shown in Table P8.14. This is a
+resolution III fraction with generators E = BD, F = BCD, G
+= AC, H = ACD, and J = AB.}
+
+\textbf{(a) Find the defining relation and the alias relationships in
+this design.}
+
+\textbf{(b) Estimate the factor effects and use a normal probability
+plot to tentatively identify the important factors.}
+
+\textbf{(c) Fit an appropriate model using the factors identified in
+part (b) above.}
+
+\textbf{(d) Plot the residuals from this model versus the predicted
+number of defects. Also, prepare a normal probability plot of the residuals. Comment on the adequacy of
+these plots.}
+
+\textbf{(e) In part (d) you should have noticed an indication that
+the variance of the response is not constant.
+(Considering that the response is a count, you should
+have expected this.) The previous table also shows a
+transformation on c, the square root, that is a widely
+used variance stabilizing transformation for count
+data. (Refer to the discussion of variance stabilizing
+transformations in Chapter 3.) Repeat parts (a)
+through (d) using the transformed response and comment
+on your results. Specifically, are the residual
+plots improved?}
+
+\textbf{(f) There is a modification to the square root transformation,
+proposed by Freeman and Tukey
+("Transformations Related to the Angular and the
+Square Root," Annals of Mathematical Statistics,
+Vol. 21, 1950, pp. 607-611) that improves its performance.
+FandT's modification to the square root transformation
+$\frac{\sqrt{c} + \sqrt{c+1}}{2}$ is  Rework parts (a) through (d) using this transformation
+and comment on the results. (For an interesting
+discussion and analysis of this experiment, refer to
+"Analysis of Factorial Experiments with Defects or Defectives as the Response," by S. Bisgaard and H.
+T. Fuller, Quality Engineering, Vol. 7, 1994-95,
+pp. 429-443.)}
