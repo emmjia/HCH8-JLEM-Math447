@@ -21,7 +21,7 @@ rep4 = c(95,76,83,86,90,75,84,80)
 chemical = data.frame(rep1,rep2,rep3,rep4)
 
 #2^(4-1) with I=ABCD (Resolution IV)
-fraction.chem=with(chemical, chemical[A * B * C * D == 1,])
+fraction.chem=with(chemical, chemical[rep1 * rep2 * rep3 * rep4 == 1,])
 ```
 
 ##8.10
@@ -34,6 +34,9 @@ leaf springs used in an automotive application. The factors are
 A = furnace temperature, B = heating time, C = transfer
 time, D = hold down time, and E = quench oil temperature.
 The data are shown in Table P8.1}
+
+```{r}
+```
 
 ##8.12
 
