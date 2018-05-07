@@ -23,6 +23,35 @@ A = furnace temperature, B = heating time, C = transfer
 time, D = hold down time, and E = quench oil temperature.
 The data are shown in Table P8.1}
 
+\textbf{(a) Write out the alias structure for this design.  What is the resolution of this design?}
+
+We design a half factorial design with resolution V and generator ABCDE.  The alias structure for this design is shown below:
+$[A] \rightarrow A + BCDE$
+$[B] \rightarrow B + ACDE$
+$[C] \rightarrow C + ABDE$
+$[D] \rightarrow D + ABCE$
+$[E] \rightarrow E + ABCD$
+$[AB] \rightarrow AB + CDE$
+$[AC] \rightarrow AC + BDE$
+$[AD] \rightarrow AD + BCE$
+$[AE] \rightarrow AE + BCD$
+$[BC] \rightarrow BC + ADE$
+$[BD] \rightarrow BD + ACE$
+$[BE] \rightarrow BE + ACD$
+$[CD] \rightarrow CD + ABE$
+$[CE] \rightarrow CE + ABD$
+$[DE] \rightarrow DE + ABC$
+
+\textbf{(b) Analyze the data.  What factors influence the mean free height?}
+
+
+
+\textbf{(c) Calculate the range and standard deviation of the free height for each run.  Is there any indication that any of these factors affects variability in the free height?}
+
+\textbf{(d) Analyze the residuals from this experiment, and comment on your findings.}
+
+\textbf{(e) Is this the best possible design for five factors in 16 runs?  Specifically, can you find a fractional design for five factors in 16 runs with a higher resolution than this one?}
+
 ##8.12
 
 \textbf{Consider the leaf spring experiment in Problem 8.7.
