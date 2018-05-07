@@ -5,6 +5,12 @@ date: "May 10, 2018"
 output: pdf_document
 ---
 
+```{r}
+# loading libraries
+library(gplots)
+```
+
+
 ##8.1
 
 \textbf{Suppose that in the chemical process development
@@ -26,6 +32,7 @@ The data are shown in Table P8.1}
 \textbf{(a) Write out the alias structure for this design.  What is the resolution of this design?}
 
 We design a half factorial design with resolution V and generator ABCDE.  The alias structure for this design is shown below:
+
 $[A] \rightarrow A + BCDE$
 $[B] \rightarrow B + ACDE$
 $[C] \rightarrow C + ABDE$
@@ -44,6 +51,49 @@ $[DE] \rightarrow DE + ABC$
 
 \textbf{(b) Analyze the data.  What factors influence the mean free height?}
 
+```{r}
+# declaring data
+A <- rep(x = c("-", "+"), times = 8)
+B <- rep(x = c("-", "+"), each = 2, times = 4)
+C <- rep(x = c("-", "+"), each = 4, times = 2)
+D <- c("-", "+", "+", "-", "+", "-", "-", "+", "-", "+", "+", "-", "+", "-", "-", "+")
+E <- rep(x = c("-", "+"), each = 8)
+FH1 <- c(7.78, 8.15, 7.5, 7.59, 7.54, 7.69, 7.56, 7.56, 7.5, 7.88, 7.5, 7.63, 7.32, 7.56, 7.18, 7.81)
+FH2 <- c(7.78, 8.18, 7.56, 7.56, 8, 8.09, 7.52, 7.81, 7.25, 7.88, 7.56, 7.75, 7.44, 7.69, 7.18, 7.5)
+FH3 <- c(7.81, 7.88, 7.5, 7.75, 7.88, 8.06, 7.44, 7.69, 7.12, 7.44, 7.5, 7.56, 7.44, 7.62, 7.25, 7.59)
+
+# creating table
+A <- c(A, A, A)
+B <- c(B, B, B)
+C <- c(C, C, C)
+D <- c(D, D, D)
+E <- c(E, E, E)
+FH <- as.numeric(c(FH1, FH2, FH3))
+
+spring <- data.frame(cbind(A, B, C, D, E, FH))
+
+# defining coded
+coded=function(x)
+{
+  ifelse(x=="+", 1, -1)
+}
+
+# decoding data
+for (j in 1:5)
+  spring[, j]=as.numeric(coded(spring[, j]))
+
+# defining fraction
+fraction <- with(spring, spring[A * B * C * D * E == 1,])
+
+# linear regression
+summary(lm(as.numeric(FH) ~ A * B * C * D * E, fraction))
+
+# alias structure
+alias(lm(as.numeric(FH) ~ A * B * C * D * E, fraction))
+
+# half normal probability plot
+qqnorm(aov(as.numeric(FH) ~ A * B * C * D * E, fraction), label = TRUE)
+```
 
 
 \textbf{(c) Calculate the range and standard deviation of the free height for each run.  Is there any indication that any of these factors affects variability in the free height?}
