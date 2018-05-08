@@ -8,6 +8,7 @@ output: pdf_document
 ```{r}
 # loading libraries
 library(gplots)
+library(car)
 ```
 
 
@@ -61,24 +62,6 @@ The data are shown in Table P8.1}
 
 We design a half factorial design with resolution V and generator ABCDE.  The alias structure for this design is shown below:
 
-$[A] \rightarrow A + BCDE$
-$[B] \rightarrow B + ACDE$
-$[C] \rightarrow C + ABDE$
-$[D] \rightarrow D + ABCE$
-$[E] \rightarrow E + ABCD$
-$[AB] \rightarrow AB + CDE$
-$[AC] \rightarrow AC + BDE$
-$[AD] \rightarrow AD + BCE$
-$[AE] \rightarrow AE + BCD$
-$[BC] \rightarrow BC + ADE$
-$[BD] \rightarrow BD + ACE$
-$[BE] \rightarrow BE + ACD$
-$[CD] \rightarrow CD + ABE$
-$[CE] \rightarrow CE + ABD$
-$[DE] \rightarrow DE + ABC$
-
-\textbf{(b) Analyze the data.  What factors influence the mean free height?}
-
 ```{r}
 # declaring data
 A <- rep(x = c("-", "+"), times = 8)
@@ -118,17 +101,53 @@ summary(lm(as.numeric(FH) ~ A * B * C * D * E, spring))
 
 # alias structure
 alias(lm(as.numeric(FH) ~ A * B * C * D * E, spring))
-
-# half normal probability plot
-qqnorm(aov(as.numeric(FH) ~ A * B * C * D * E, fraction), label = TRUE)
 ```
 
+\textbf{(b) Analyze the data.  What factors influence the mean free height?}
+
+```{r}
+# linear regression
+spring.lm <- lm(as.numeric(FH) ~ A * B * C * D * E, spring)
+summary(spring.lm)
+
+
+# half normal probability plot
+qqnorm(aov(as.numeric(FH) ~ A * B * C * D * E, spring), label = TRUE)
+```
+The factors that influence mean free height are A, B, E, BE.
 
 \textbf{(c) Calculate the range and standard deviation of the free height for each run.  Is there any indication that any of these factors affects variability in the free height?}
 
+```{r}
+# min max and sd
+data.frame("Free Height 1" = c(range(FH1), sd(FH1)),
+           "Free Height 2" = c(range(FH2), sd(FH2)),
+           "Free Height 3" = c(range(FH3), sd(FH3)),
+           row.names = c("min", "max", "sd"))
+```
+With similar values between all replicates, there's no obvious sign that range or standard devaition of the free height for each run affects variability in free height.
+
 \textbf{(d) Analyze the residuals from this experiment, and comment on your findings.}
 
+```{r}
+# plotting residuals
+res <- as.numeric(spring$FH) - fitted(spring.lm)
+plot(fitted(spring.lm), res)
+
+qqPlot(res)
+
+plot(spring$A, res)
+plot(spring$B, res)
+plot(spring$C, res)
+plot(spring$D, res)
+plot(spring$E, res)
+```
+
+It's likely that factor D has a dispersion effect.
+
 \textbf{(e) Is this the best possible design for five factors in 16 runs?  Specifically, can you find a fractional design for five factors in 16 runs with a higher resolution than this one?}
+
+It shouldn't be possible to find a fractional design with a higher resolution that our current one, since it's already a 5 resolution design.
 
 ##8.12
 
@@ -154,6 +173,8 @@ coded=function(x)
 {
   ifelse(x=="+", 1, -1)
 }
+
+
 ```
 
 ##8.14
