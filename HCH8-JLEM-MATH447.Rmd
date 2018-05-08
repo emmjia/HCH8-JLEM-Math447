@@ -111,13 +111,13 @@ for (j in 1:5)
   spring[, j]=as.numeric(coded(spring[, j]))
 
 # defining fraction
-fraction <- with(spring, spring[A * B * C * D * E == 1,])
+#fraction <- with(spring, spring[A * B * C * D * E == 1,])
 
 # linear regression
-summary(lm(as.numeric(FH) ~ A * B * C * D * E, fraction))
+summary(lm(as.numeric(FH) ~ A * B * C * D * E, spring))
 
 # alias structure
-alias(lm(as.numeric(FH) ~ A * B * C * D * E, fraction))
+alias(lm(as.numeric(FH) ~ A * B * C * D * E, spring))
 
 # half normal probability plot
 qqnorm(aov(as.numeric(FH) ~ A * B * C * D * E, fraction), label = TRUE)
