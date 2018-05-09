@@ -123,7 +123,14 @@ summary(spring.lm)
 # half normal probability plot
 qqnorm(aov(as.numeric(FH) ~ A * B * C * D * E, spring), label = TRUE)
 ```
-The factors that influence mean free height are A, B, E, BE.
+The factors that influence mean free height are A, B, E, BE.  We can create a reduced model using this information.
+
+```{r}
+# new linear regression
+spring.lm2 <- lm(as.numeric(FH) ~ A + B * E, spring)
+summary(spring.lm2)
+```
+
 
 \textbf{(c) Calculate the range and standard deviation of the free height for each run.  Is there any indication that any of these factors affects variability in the free height?}
 
@@ -150,9 +157,19 @@ plot(spring$B, res)
 plot(spring$C, res)
 plot(spring$D, res)
 plot(spring$E, res)
-```
 
-It's likely that factor D has a dispersion effect.
+# plotting new model residuals
+res <- as.numeric(spring$FH) - fitted(spring.lm2)
+plot(fitted(spring.lm2), res)
+
+qqPlot(res)
+
+plot(spring$A, res)
+plot(spring$B, res)
+plot(spring$E, res)
+```
+Both models are normally distributed and have residuals who's variances are homogenous.  The models are appropriate.
+
 
 \textbf{(e) Is this the best possible design for five factors in 16 runs?  Specifically, can you find a fractional design for five factors in 16 runs with a higher resolution than this one?}
 
