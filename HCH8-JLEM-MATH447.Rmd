@@ -44,8 +44,17 @@ chem.lm = lm(rep1 ~ A*B*C*D, fraction.chem); summary(chem.lm)
 #alias
 alias(chem.lm)
 #normal probability plot
-qqnorm(aov(rep1 ~ A * B * C * D, fraction.chem), label = TRUE)
+qqnorm(aov(rep1 ~ A * B * C * D, fraction.chem), label = TRUE)#A, C, AB, BC
+#refine model
+chem.lm2 = lm(rep1 ~ A*B + A*D, fraction.chem); summary(chem.lm2)
+
+#Residual Analysis
+res = fraction.chem$rep1 - fitted(chem.lm2)
+qqPlot(res)
+plot(fitted(chem.lm2), res)
 ```
+
+We perform our analysis, check our aliases, and do half normal probability. We see that interaction effects AB + AD and their main effects have the largest effect on the response variable, we quickly check our residuals and everything seems good. Our model is good.
 
 ##8.10
 
@@ -174,6 +183,9 @@ coded=function(x)
   ifelse(x=="+", 1, -1)
 }
 
+# decoding data
+for (j in 1:5)
+  spring[, j]=as.numeric(coded(spring[, j]))
 
 ```
 
@@ -210,8 +222,17 @@ experi.lm = lm(yield ~ A*B*C*D*E, fraction.experi); summary(experi.lm)
 #alias
 alias(experi.lm)
 #normal probabiliy plot
-qqnorm(aov(yield ~ A * B * C * D * E, fraction.experi), label = TRUE)
+qqnorm(aov(yield ~ A * B * C * D * E, fraction.experi), label = TRUE)# A,B,C, and AB
+
+#new linear model
+experi.lm2 = lm(yield ~ A + B + C + A*B, fraction.experi); summary(experi.lm2)
+
+res = fraction.experi$yield - fitted(experi.lm2)
+qqPlot(res)
+plot(fitted(experi.lm2), res)
 ```
+
+We begin with our analysis by checking the null model and checking if the main effects are aliased with their interaction effects. We see the aliased chart has good results. We use half normal probability and see that the largest effects are A,B,C, and AB. We fit that into a new refined model, check our p-values, normality and p-values and our results look appropriate. We can state that our refined model is good.
 
 ##8.51
 
