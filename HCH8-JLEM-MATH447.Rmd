@@ -383,14 +383,18 @@ hardata.lm.sqrtc <- lm(sqrtlow.c ~ A*B*C*D*E*F*G*H*J, hardata)
 
 #alias
 #alias(hardata.lm)
+```
 
+```{r, fig.show="hide"}
 #half normal probability plot
 qqnorm(aov(sqrtlow.c ~ A*B*C*D*E*F*G*H*J, fraction.hardata), label = TRUE)#F and D
 
 #Refined Model
 hardata.lm.sqrtc2 <- lm(sqrtlow.c ~ D*F, hardata)
 summary(hardata.lm.sqrtc2)
+```
 
+```{r,out.width='.49\\linewidth', fig.width=3, fig.height=3}
 #Residual Analysis
 res = hardata$sqrtlow.c - fitted(hardata.lm.sqrtc2)
 qqPlot(res)
@@ -416,10 +420,14 @@ hardata.lm <- lm(FTMOD ~ A*B*C*D*E*F*G*H*J, hardata)
 
 #alias
 #alias(hardata.lm)
+```
 
+```{r, fig.show="hide"}
 #half normal probability plot
 qqnorm(aov(FTMOD ~ A*B*C*D*E*F*G*H*J, fraction.hardata), label = TRUE)#F and D
+```
 
+```{r,out.width='.49\\linewidth', fig.width=3, fig.height=3}
 #Refined Model
 hardata.lm2 <- lm(FTMOD ~ D*F, hardata)
 summary(hardata.lm2)
