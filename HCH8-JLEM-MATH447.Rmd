@@ -298,7 +298,7 @@ coded=function(x) #a function to code variable x
 for (j in 1:9)
   hardata[, j]=as.numeric(coded(hardata[, j]))
 
-fraction.hardata=with(hardata, hardata[A * B * C * D * E * G == 1,])
+#fraction.hardata=with(hardata, hardata[A * B * C * D * E * G == 1,])
 
 #linear regression
 hardata.lm <- lm(FTMOD ~ A*B*C*D*E*F*G*H*J, hardata)
@@ -314,7 +314,7 @@ part (b) above.}
 
 ```{r}
 #refined model
-hardata.lm2 <- lm(FTMOD ~ F * K, fraction.hardata); summary(hardata.lm2)
+hardata.lm2 <- lm(FTMOD ~ F * A*G, fraction.hardata); summary(hardata.lm2)
 ```
 
 \textbf{(d) Plot the residuals from this model versus the predicted
