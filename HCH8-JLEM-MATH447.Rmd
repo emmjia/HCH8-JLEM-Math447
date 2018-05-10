@@ -152,20 +152,13 @@ With similar values between all replicates, there's no obvious sign that range o
 res <- as.numeric(spring$FH) - fitted(spring.lm)
 plot(fitted(spring.lm), res)
 
-qqPlot(res)
-
-plot(spring$A, res)
-plot(spring$B, res)
-plot(spring$C, res)
-plot(spring$D, res)
-plot(spring$E, res)
-
 # plotting new model residuals
 res <- as.numeric(spring$FH) - fitted(spring.lm2)
 plot(fitted(spring.lm2), res)
 
 qqPlot(res)
 
+par(mfrow = c(1,3))
 plot(spring$A, res)
 plot(spring$B, res)
 plot(spring$E, res)
