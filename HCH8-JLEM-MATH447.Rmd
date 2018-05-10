@@ -387,6 +387,7 @@ res = hardata$sqrtlow.c - fitted(hardata.lm.sqrtc2)
 qqPlot(res)
 plot(fitted(hardata.lm.sqrtc2), res)
 ```
+Using $c^2$, we prune the model slightly including only D, F, and B:G.  While main effects B and G are not statistically significant, there is evidence that the interaction between the two should be included in the model.  Furthermore, residual plots generate random points centered around zero and a qqplot reveals that our data is normally distributed.  We find that the reduced model is an adequate one.
 
 \textbf{(f) There is a modification to the square root transformation,
 proposed by Freeman and Tukey
@@ -411,10 +412,7 @@ hardata.lm <- lm(FTMOD ~ A*B*C*D*E*F*G*H*J, hardata)
 
 ```{r, fig.show="hide"}
 #half normal probability plot
-<<<<<<< HEAD
 qqnorm(aov(FTMOD ~ A*B*C*D*E*F*G*H*J, hardata), label = TRUE)#F and D
-=======
-qqnorm(aov(FTMOD ~ A*B*C*D*E*F*G*H*J, fraction.hardata), label = TRUE)#F and D
 ```
 
 ```{r,out.width='.49\\linewidth', fig.width=3, fig.height=3}
