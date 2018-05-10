@@ -351,6 +351,8 @@ qqPlot(res)
 plot(fitted(hardata.lm2.c), res)
 ```
 
+We look at the residuals and normality and everything is good. Our model is good.
+
 \textbf{(e) In part (d) you should have noticed an indication that
 the variance of the response is not constant.
 (Considering that the response is a count, you should
@@ -411,10 +413,8 @@ hardata.lm <- lm(FTMOD ~ A*B*C*D*E*F*G*H*J, hardata)
 
 ```{r, fig.show="hide"}
 #half normal probability plot
-<<<<<<< HEAD
+
 qqnorm(aov(FTMOD ~ A*B*C*D*E*F*G*H*J, hardata), label = TRUE)#F and D
-=======
-qqnorm(aov(FTMOD ~ A*B*C*D*E*F*G*H*J, fraction.hardata), label = TRUE)#F and D
 ```
 
 ```{r,out.width='.49\\linewidth', fig.width=3, fig.height=3}
@@ -428,3 +428,4 @@ qqPlot(res)
 plot(fitted(hardata.lm2), res)
 ```
 
+After refining our model we check normality and the residuals. We see that normality is off and residuals has an increasing pattern. We can state that our model is not good.
