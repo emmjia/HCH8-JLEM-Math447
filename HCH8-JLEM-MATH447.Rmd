@@ -358,9 +358,9 @@ these plots.}
 
 ```{r,out.width='.49\\linewidth', fig.width=3, fig.height=3}
 #Residual Analysis
-res = hardata$FTMOD - fitted(hardata.lm2.c)
+res = hardata$low.c - fitted(hardata.lm2.c)
 qqPlot(res)
-plot(fitted(hardata.lm2), res)
+plot(fitted(hardata.lm2.c), res)
 ```
 
 \textbf{(e) In part (d) you should have noticed an indication that
