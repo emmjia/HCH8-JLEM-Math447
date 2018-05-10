@@ -340,7 +340,7 @@ hardata.lm.c <- lm(low.c ~ A*B*C*D*E*F*G*H*J, hardata)
 
 ```{r, fig.show="hide"}
 #half normal probability plot
-qqnorm(aov(low.c ~ A*B*C*D*E*F*G*H*J, fraction.hardata), label = TRUE)#F and D
+qqnorm(aov(low.c ~ A*B*C*D*E*F*G*H*J, fraction.hardata), label = TRUE)#
 ```
 
 \textbf{(c) Fit an appropriate model using the factors identified in

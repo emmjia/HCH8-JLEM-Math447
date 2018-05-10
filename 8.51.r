@@ -29,7 +29,7 @@ hardata.lm <- lm(FTMOD ~ A*B*C*D*E*F*G*H*J, hardata)
 #alias(hardata.lm)
 
 #half normal probability plot
-qqnorm(aov(FTMOD ~ A*B*C*D*E*F*G*H*J, fraction.hardata), label = TRUE)#F and D
+qqnorm(aov(FTMOD ~ A*B*C*D*E*F*G*H*J, fraction.hardata), label = TRUE)
 
 #Refined Model
 hardata.lm2 <- lm(FTMOD ~ D*F, hardata)
