@@ -71,22 +71,6 @@ The data are shown in Table P8.1}
 
 We design a half factorial design with resolution V and generator ABCDE.  The alias structure for this design is shown below:
 
-$[A] \rightarrow A + BCDE$
-$[B] \rightarrow B + ACDE$
-$[C] \rightarrow C + ABDE$
-$[D] \rightarrow D + ABCE$
-$[E] \rightarrow E + ABCD$
-$[AB] \rightarrow AB + CDE$
-$[AC] \rightarrow AC + BDE$
-$[AD] \rightarrow AD + BCE$
-$[AE] \rightarrow AE + BCD$
-$[BC] \rightarrow BC + ADE$
-$[BD] \rightarrow BD + ACE$
-$[BE] \rightarrow BE + ACD$
-$[CD] \rightarrow CD + ABE$
-$[CE] \rightarrow CE + ABD$
-$[DE] \rightarrow DE + ABC$
-
 ```{r}
 # declaring data
 A <- rep(x = c("-", "+"), times = 8)
@@ -220,27 +204,7 @@ coded=function(x)
 for (j in 1:5)
   spring[, j]=as.numeric(coded(spring[, j]))
 
-
-with(spring, interaction.plot(E, A, as.numeric(FH), xlab = "Quench Oil Temperature",
-                              ylab = "Free Height", main = "Interaction Plot of E and A"))
-
-with(spring, interaction.plot(E, B, as.numeric(FH), xlab = "Quench Oil Temperature",
-                              ylab = "Free Height", main = "Interaction Plot of E and B"))
-
-with(spring, interaction.plot(E, C, as.numeric(FH), xlab = "Quench Oil Temperature",
-                              ylab = "Free Height", main = "Interaction Plot of E and C"))
-
-with(spring, interaction.plot(E, D, as.numeric(FH), xlab = "Quench Oil Temperature",
-                              ylab = "Free Height", main = "Interaction Plot of E and D"))
-
-##mean
-with(spring, tapply(as.numeric(FH),A,mean))
-with(spring, tapply(as.numeric(FH),B,mean))
-with(spring, tapply(as.numeric(FH),C,mean))
-with(spring, tapply(as.numeric(FH),D,mean))
 ```
-
-We use interaction plots to see what is the recommended setting for each factor. We take a look at our results and see that to reduce variability of Free Height we must have factor A high, factor B low, factor C low, and factor D high. 
 
 ##8.14
 
@@ -318,12 +282,12 @@ A <- rep(x = c("-", "+"), times = 8)
 B <- rep(x = c("-", "+"), each = 2, times = 4)
 C <- rep(x = c("-", "+"), each = 4, times = 2)
 D <- rep(x = c("-", "+"), each = 8)
-E <- c("+","+","-","-","+","+","-","-","-","-","+","+","-","-","+","+")
-F <- c("-","-","+","+","+","+","-","-","+","+","-","-","-","-","+","+")
-G <- c("+","-","+","-","-","+","-","+","+","-","+","-","-","+","-","+")
-H <- c("-","+","-","+","+","-","+","-","+","-","+","-","-","+","-","+")
+E <- c("+","+","+","+","-","-","-","-","-","-","-","-","+","+","+","+")
+F <- c("+","+","-","-","+","+","-","-","-","-","+","+","-","-","+","+")
+G <- c("+","+",rep(x =c("-","+"), each = 4), rep(x =c("-"), each = 4),"+","+")
+H <- c("+","-","+","-","-","+","-","+","+","-","+","-","-","+","-","+")
 J <- c("+","-","-","+","+","-","-","+","+","-","-","+","+","-","-","+")
-FTMOD <- c(7.52,4.18,1.57,2.12,1.87,2.12,7.12,1.57,1.21,0.50,1.87,3.54,1.87,2.12,0.50,0.50)
+FTMOD <- c(1.363,1.555,1.417,1.076,1.363,1.363,1.123,1.259,0.968,1.083,1.556,1.242,1.363,1.130,1.160,1.356)
 #data
 hardata = data.frame(A,B,C,D,E,F,G,H,J,FTMOD)
 
@@ -334,17 +298,15 @@ coded=function(x) #a function to code variable x
 for (j in 1:9)
   hardata[, j]=as.numeric(coded(hardata[, j]))
 
-fraction.hardata=with(hardata, hardata[A * B * C * D * E * F * G * H * J== 1,])
+fraction.hardata=with(hardata, hardata[A * B * C * D * E * G == 1,])
 
 #linear regression
-hardata.lm <- lm(FTMOD ~ A*B*C*D*E*F*G*H*J, fraction.hardata)
+hardata.lm <- lm(FTMOD ~ A*B*C*D*E*F*G*H*J, hardata)
 
 #alias
-#alias(hardata.lm)
+alias(hardata.lm)
 
-
-qqnorm(aov(FTMOD ~ A*B*C*D*E*F*G*H*J, fraction.hardata), label = TRUE)#F and D
-
+qqnorm(aov(FTMOD ~ A*B*C*D*E*F*G*H*J, hardata), label = TRUE)#F and AG
 ```
 
 \textbf{(c) Fit an appropriate model using the factors identified in
