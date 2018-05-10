@@ -322,7 +322,7 @@ low.c = c(56,17,2,4,3,4,50,2,1,0,3,12,3,4,0,0)
 sqrtlow.c = c(sqrt(low.c))
 FTMOD <- c(7.52,4.18,1.57,2.12,1.87,2.12,7.12,1.57,1.21,0.50,1.87,3.54,1.87,2.12,0.50,0.50)
 #data
-hardata = data.frame(A,B,C,D,E,F,G,H,J,low.c)
+hardata = data.frame(A,B,C,D,E,F,G,H,J,low.c,sqrtlow.c,FTMOD)
 
 coded=function(x) #a function to code variable x
 {
@@ -340,7 +340,7 @@ hardata.lm.c <- lm(low.c ~ A*B*C*D*E*F*G*H*J, hardata)
 
 ```{r, fig.show="hide"}
 #half normal probability plot
-qqnorm(aov(low.c ~ A*B*C*D*E*F*G*H*J, fraction.hardata), label = TRUE)#
+qqnorm(aov(low.c ~ A*B*C*D*E*F*G*H*J, hardata), label = TRUE)#A, AF, BC, AD, BG, D, F
 ```
 
 \textbf{(c) Fit an appropriate model using the factors identified in
@@ -348,7 +348,7 @@ part (b) above.}
 
 ```{r}
 #Refined Model
-hardata.lm2.c <- lm(low.c ~ D*F, hardata)
+hardata.lm2.c <- lm(low.c ~ A*D + A*F + B*C + B*G, hardata)#A, AF, BC, AD, BG, D, F
 summary(hardata.lm2.c)
 ```
 
@@ -358,7 +358,7 @@ these plots.}
 
 ```{r,out.width='.49\\linewidth', fig.width=3, fig.height=3}
 #Residual Analysis
-res = hardata$FTMOD - fitted(hardata.lm2)
+res = hardata$FTMOD - fitted(hardata.lm2.c)
 qqPlot(res)
 plot(fitted(hardata.lm2), res)
 ```
