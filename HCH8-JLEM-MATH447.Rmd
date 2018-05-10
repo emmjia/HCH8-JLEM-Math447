@@ -287,7 +287,7 @@ resolution III fraction with generators E = BD, F = BCD, G
 this design.}
 
 The generators we gather from the table are shown below:
-$I = BDE = BCDF = ACG = ACDH = ABJ
+I = BDE = BCDF = ACG = ACDH = ABJ
 
 From there, we can derive the following aliases:
 CEF = ABCDEG = ABCEH = ADEJ = ABDFG = ABFG = ACDFJ = DGH = BCGJ = BCDHJ
@@ -416,7 +416,6 @@ qqnorm(aov(FTMOD ~ A*B*C*D*E*F*G*H*J, hardata), label = TRUE)#F and D
 =======
 qqnorm(aov(FTMOD ~ A*B*C*D*E*F*G*H*J, fraction.hardata), label = TRUE)#F and D
 ```
->>>>>>> emmanuel
 
 ```{r,out.width='.49\\linewidth', fig.width=3, fig.height=3}
 #Refined Model
