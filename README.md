@@ -9,6 +9,6 @@ Exercises from Chapter 8 of Design and Analysis of Experiments
 - [x] 8.10.c
 - [x] 8.10.d
 - [x] 8.10.e
-- [ ] 8.12
+- [x] 8.12
 - [x] 8.14
 - [ ] 8.51

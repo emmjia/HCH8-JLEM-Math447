@@ -5,7 +5,7 @@ date: "May 10, 2018"
 output: pdf_document
 ---
 
-```{r}
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 # loading libraries
 library(gplots)
 library(car)
@@ -43,8 +43,14 @@ fraction.chem=with(chemical, chemical[A * B * C * D == 1,])
 chem.lm = lm(rep1 ~ A*B*C*D, fraction.chem); summary(chem.lm)
 #alias
 alias(chem.lm)
+```
+
+```{r, fig.show="hide"}
 #normal probability plot
 qqnorm(aov(rep1 ~ A * B * C * D, fraction.chem), label = TRUE)#A, C, AB, BC
+```
+
+```{r,out.width='.49\\linewidth', fig.width=3, fig.height=3}
 #refine model
 chem.lm2 = lm(rep1 ~ A*B + A*D, fraction.chem); summary(chem.lm2)
 
@@ -118,8 +124,9 @@ alias(lm(as.numeric(FH) ~ A * B * C * D * E, spring))
 # linear regression
 spring.lm <- lm(as.numeric(FH) ~ A * B * C * D * E, spring)
 summary(spring.lm)
+```
 
-
+```{r fig.show="hide"}
 # half normal probability plot
 qqnorm(aov(as.numeric(FH) ~ A * B * C * D * E, spring), label = TRUE)
 ```
@@ -299,12 +306,12 @@ A <- rep(x = c("-", "+"), times = 8)
 B <- rep(x = c("-", "+"), each = 2, times = 4)
 C <- rep(x = c("-", "+"), each = 4, times = 2)
 D <- rep(x = c("-", "+"), each = 8)
-E <- c("+","+","+","+","-","-","-","-","-","-","-","-","+","+","+","+")
-F <- c("+","+","-","-","+","+","-","-","-","-","+","+","-","-","+","+")
-G <- c("+","+",rep(x =c("-","+"), each = 4), rep(x =c("-"), each = 4),"+","+")
-H <- c("+","-","+","-","-","+","-","+","+","-","+","-","-","+","-","+")
+E <- c("+","+","-","-","+","+","-","-","-","-","+","+","-","-","+","+")
+F <- c("-","-","+","+","+","+","-","-","+","+","-","-","-","-","+","+")
+G <- c("+","-","+","-","-","+","-","+","+","-","+","-","-","+","-","+")
+H <- c("-","+","-","+","+","-","+","-","+","-","+","-","-","+","-","+")
 J <- c("+","-","-","+","+","-","-","+","+","-","-","+","+","-","-","+")
-FTMOD <- c(1.363,1.555,1.417,1.076,1.363,1.363,1.123,1.259,0.968,1.083,1.556,1.242,1.363,1.130,1.160,1.356)
+FTMOD <- c(7.52,4.18,1.57,2.12,1.87,2.12,7.12,1.57,1.21,0.50,1.87,3.54,1.87,2.12,0.50,0.50)
 #data
 hardata = data.frame(A,B,C,D,E,F,G,H,J,FTMOD)
 
@@ -315,23 +322,23 @@ coded=function(x) #a function to code variable x
 for (j in 1:9)
   hardata[, j]=as.numeric(coded(hardata[, j]))
 
-#fraction.hardata=with(hardata, hardata[A * B * C * D * E * G == 1,])
-
 #linear regression
 hardata.lm <- lm(FTMOD ~ A*B*C*D*E*F*G*H*J, hardata)
 
 #alias
-alias(hardata.lm)
+#alias(hardata.lm)
 
-qqnorm(aov(FTMOD ~ A*B*C*D*E*F*G*H*J, hardata), label = TRUE)#F and AG
+#half normal probability plot
+qqnorm(aov(FTMOD ~ A*B*C*D*E*F*G*H*J, fraction.hardata), label = TRUE)#F and D
 ```
 
 \textbf{(c) Fit an appropriate model using the factors identified in
 part (b) above.}
 
 ```{r}
-#refined model
-hardata.lm2 <- lm(FTMOD ~ F * A*G, fraction.hardata); summary(hardata.lm2)
+#Refined Model
+hardata.lm2 <- lm(FTMOD ~ D*F, hardata)
+summary(hardata.lm2)
 ```
 
 \textbf{(d) Plot the residuals from this model versus the predicted
@@ -339,10 +346,10 @@ number of defects. Also, prepare a normal probability plot of the residuals. Com
 these plots.}
 
 ```{r}
-#residual analysis
-res <- fraction.hardata$FTMOD - fitted(hardata.lm2)
+#Residual Analysis
+res = hardata$FTMOD - fitted(hardata.lm2)
 qqPlot(res)
-plot(fitted(hardata.lm2, res))
+plot(fitted(hardata.lm2), res)
 ```
 
 \textbf{(e) In part (d) you should have noticed an indication that
@@ -356,6 +363,8 @@ transformations in Chapter 3.) Repeat parts (a)
 through (d) using the transformed response and comment
 on your results. Specifically, are the residual
 plots improved?}
+
+
 
 \textbf{(f) There is a modification to the square root transformation,
 proposed by Freeman and Tukey
