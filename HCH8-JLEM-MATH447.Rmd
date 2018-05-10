@@ -148,11 +148,12 @@ data.frame("Free Height 1" = c(range(FH1), sd(FH1)),
            "Free Height 3" = c(range(FH3), sd(FH3)),
            row.names = c("min", "max", "sd"))
 ```
+
 With similar values between all replicates, there's no obvious sign that range or standard devaition of the free height for each run affects variability in free height.
 
 \textbf{(d) Analyze the residuals from this experiment, and comment on your findings.}
 
-```{r}
+```{r,out.width='.49\\linewidth', fig.width=3, fig.height=3}
 # plotting residuals
 res <- as.numeric(spring$FH) - fitted(spring.lm)
 plot(fitted(spring.lm), res)
@@ -190,7 +191,7 @@ to control during manufacturing. Where would you set factors
 A, B, C, and D to reduce variability in the free height as much
 as possible regardless of the quench oil temperature used? Note refer to 8.10 instead of 8.7}
 
-```{r}
+```{r,out.width='.49\\linewidth', fig.width=3, fig.height=3}
 # declaring data
 A <- rep(x = c("-", "+"), times = 8)
 B <- rep(x = c("-", "+"), each = 2, times = 4)
@@ -228,6 +229,7 @@ with(spring, interaction.plot(E, C, as.numeric(FH), xlab = "Quench Oil Temperatu
 with(spring, interaction.plot(E, D, as.numeric(FH), xlab = "Quench Oil Temperature",
                               ylab = "Free Height", main = "Interaction Plot of E and D"))
 ```
+
 To reduce variance in free height, we'd want high temperature, low amount of material 1, low solvent volume, and high condensation time.
 
 ##8.14
@@ -263,8 +265,13 @@ experi.lm = lm(yield ~ A*B*C*D*E, fraction.experi); summary(experi.lm)
 #alias
 alias(experi.lm)
 #normal probabiliy plot
-qqnorm(aov(yield ~ A * B * C * D * E, fraction.experi), label = TRUE)# A,B,C, and AB
+```
 
+```{r fig.show = "hide"}
+qqnorm(aov(yield ~ A * B * C * D * E, fraction.experi), label = TRUE)# A,B,C, and AB
+```
+
+```{r,out.width='.49\\linewidth', fig.width=3, fig.height=3}
 #new linear model
 experi.lm2 = lm(yield ~ A + B + C + A*B, fraction.experi); summary(experi.lm2)
 
@@ -293,7 +300,7 @@ resolution III fraction with generators E = BD, F = BCD, G
 this design.}
 
 The generators we gather from the table are shown below:
-I = BDE = BCDF = ACG = ACDH = ABJ
+$I = BDE = BCDF = ACG = ACDH = ABJ
 
 From there, we can derive the following aliases:
 CEF = ABCDEG = ABCEH = ADEJ = ABDFG = ABFG = ACDFJ = DGH = BCGJ = BCDHJ
@@ -301,19 +308,60 @@ CEF = ABCDEG = ABCEH = ADEJ = ABDFG = ABFG = ACDFJ = DGH = BCGJ = BCDHJ
 \textbf{(b) Estimate the factor effects and use a normal probability
 plot to tentatively identify the important factors.}
 
+
+```{r}
+A <- rep(x = c("-", "+"), times = 8)
+B <- rep(x = c("-", "+"), each = 2, times = 4)
+C <- rep(x = c("-", "+"), each = 4, times = 2)
+D <- rep(x = c("-", "+"), each = 8)
+E <- c("+","+","-","-","+","+","-","-","-","-","+","+","-","-","+","+")
+F <- c("-","-","+","+","+","+","-","-","+","+","-","-","-","-","+","+")
+G <- c("+","-","+","-","-","+","-","+","+","-","+","-","-","+","-","+")
+H <- c("-","+","-","+","+","-","+","-","+","-","+","-","-","+","-","+")
+J <- c("+","-","-","+","+","-","-","+","+","-","-","+","+","-","-","+")
+low.c = c(56,17,2,4,3,4,50,2,1,0,3,12,3,4,0,0)
+sqrtlow.c = c(sqrt(low.c))
+FTMOD <- c(7.52,4.18,1.57,2.12,1.87,2.12,7.12,1.57,1.21,0.50,1.87,3.54,1.87,2.12,0.50,0.50)
+#data
+hardata = data.frame(A,B,C,D,E,F,G,H,J,low.c)
+
+coded=function(x) #a function to code variable x
+{
+  ifelse(x=="+", 1, -1)
+}
+for (j in 1:9)
+  hardata[, j]=as.numeric(coded(hardata[, j]))
+
+#linear regression
+hardata.lm.c <- lm(low.c ~ A*B*C*D*E*F*G*H*J, hardata)
+
+#alias
+#alias(hardata.lm)
+```
+
+```{r, fig.show="hide"}
+#half normal probability plot
+qqnorm(aov(low.c ~ A*B*C*D*E*F*G*H*J, fraction.hardata), label = TRUE)#F and D
+```
+
 \textbf{(c) Fit an appropriate model using the factors identified in
 part (b) above.}
 
 ```{r}
-
+#Refined Model
+hardata.lm2.c <- lm(low.c ~ D*F, hardata)
+summary(hardata.lm2.c)
 ```
 
 \textbf{(d) Plot the residuals from this model versus the predicted
 number of defects. Also, prepare a normal probability plot of the residuals. Comment on the adequacy of
 these plots.}
 
-```{r}
-
+```{r,out.width='.49\\linewidth', fig.width=3, fig.height=3}
+#Residual Analysis
+res = hardata$FTMOD - fitted(hardata.lm2)
+qqPlot(res)
+plot(fitted(hardata.lm2), res)
 ```
 
 \textbf{(e) In part (d) you should have noticed an indication that
