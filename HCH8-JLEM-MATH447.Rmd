@@ -108,12 +108,6 @@ coded=function(x)
 for (j in 1:5)
   spring[, j]=as.numeric(coded(spring[, j]))
 
-# defining fraction
-#fraction <- with(spring, spring[A * B * C * D * E == 1,])
-
-# linear regression
-summary(lm(as.numeric(FH) ~ A * B * C * D * E, spring))
-
 # alias structure
 alias(lm(as.numeric(FH) ~ A * B * C * D * E, spring))
 ```
@@ -424,8 +418,12 @@ hardata.lm <- lm(FTMOD ~ A*B*C*D*E*F*G*H*J, hardata)
 
 ```{r, fig.show="hide"}
 #half normal probability plot
+<<<<<<< HEAD
 qqnorm(aov(FTMOD ~ A*B*C*D*E*F*G*H*J, hardata), label = TRUE)#F and D
+=======
+qqnorm(aov(FTMOD ~ A*B*C*D*E*F*G*H*J, fraction.hardata), label = TRUE)#F and D
 ```
+>>>>>>> emmanuel
 
 ```{r,out.width='.49\\linewidth', fig.width=3, fig.height=3}
 #Refined Model
