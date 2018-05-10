@@ -28,15 +28,22 @@ coded=function(x)
 for (j in 1:5)
   spring[, j]=as.numeric(coded(spring[, j]))
 
-#Half Normal Probability Plot
-qqnorm(aov(as.numeric(FH) ~ A*B*C*D*E, spring), label = TRUE)#A,B,E,BE from plot
 
+#plots indicates that B=-1, E=-1
+with(spring, interaction.plot(E, A, as.numeric(FH), xlab = "Quench Oil Temperature",
+                              ylab = "Free Height", main = "Interaction Plot of E and A"))
 #Interaction plot with main effect
-with(spring, interaction.plot(A, E, as.numeric(FH)))
-with(spring, interaction.plot(B, E, as.numeric(FH)))
-with(spring, interaction.plot(C, E, as.numeric(FH)))
-with(spring, interaction.plot(D, E, as.numeric(FH)))
-##mean
-with(spring, tapply(as.numeric(FH),B,mean))
-with(spring, tapply(as.numeric(FH),E,mean))
+with(spring, interaction.plot(E, B, as.numeric(FH), xlab = "Quench Oil Temperature",
+                              ylab = "Free Height", main = "Interaction Plot of E and B"))
+#plots indicates that A=1, E=-1
+with(spring, interaction.plot(E, C, as.numeric(FH), xlab = "Quench Oil Temperature",
+                              ylab = "Free Height", main = "Interaction Plot of E and C"))
+#plots indicates that C=-1, E=-1
+with(spring, interaction.plot(E, D, as.numeric(FH), xlab = "Quench Oil Temperature",
+                              ylab = "Free Height", main = "Interaction Plot of E and D"))
 
+##mean
+with(spring, tapply(as.numeric(FH),A,mean))
+with(spring, tapply(as.numeric(FH),B,mean))
+with(spring, tapply(as.numeric(FH),C,mean))
+with(spring, tapply(as.numeric(FH),D,mean))

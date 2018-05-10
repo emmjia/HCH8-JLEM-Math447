@@ -71,6 +71,22 @@ The data are shown in Table P8.1}
 
 We design a half factorial design with resolution V and generator ABCDE.  The alias structure for this design is shown below:
 
+$[A] \rightarrow A + BCDE$
+$[B] \rightarrow B + ACDE$
+$[C] \rightarrow C + ABDE$
+$[D] \rightarrow D + ABCE$
+$[E] \rightarrow E + ABCD$
+$[AB] \rightarrow AB + CDE$
+$[AC] \rightarrow AC + BDE$
+$[AD] \rightarrow AD + BCE$
+$[AE] \rightarrow AE + BCD$
+$[BC] \rightarrow BC + ADE$
+$[BD] \rightarrow BD + ACE$
+$[BE] \rightarrow BE + ACD$
+$[CD] \rightarrow CD + ABE$
+$[CE] \rightarrow CE + ABD$
+$[DE] \rightarrow DE + ABC$
+
 ```{r}
 # declaring data
 A <- rep(x = c("-", "+"), times = 8)
