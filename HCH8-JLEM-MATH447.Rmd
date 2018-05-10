@@ -301,44 +301,11 @@ CEF = ABCDEG = ABCEH = ADEJ = ABDFG = ABFG = ACDFJ = DGH = BCGJ = BCDHJ
 \textbf{(b) Estimate the factor effects and use a normal probability
 plot to tentatively identify the important factors.}
 
-```{r}
-A <- rep(x = c("-", "+"), times = 8)
-B <- rep(x = c("-", "+"), each = 2, times = 4)
-C <- rep(x = c("-", "+"), each = 4, times = 2)
-D <- rep(x = c("-", "+"), each = 8)
-E <- c("+","+","-","-","+","+","-","-","-","-","+","+","-","-","+","+")
-F <- c("-","-","+","+","+","+","-","-","+","+","-","-","-","-","+","+")
-G <- c("+","-","+","-","-","+","-","+","+","-","+","-","-","+","-","+")
-H <- c("-","+","-","+","+","-","+","-","+","-","+","-","-","+","-","+")
-J <- c("+","-","-","+","+","-","-","+","+","-","-","+","+","-","-","+")
-FTMOD <- c(7.52,4.18,1.57,2.12,1.87,2.12,7.12,1.57,1.21,0.50,1.87,3.54,1.87,2.12,0.50,0.50)
-#data
-hardata = data.frame(A,B,C,D,E,F,G,H,J,FTMOD)
-
-coded=function(x) #a function to code variable x
-{
-  ifelse(x=="+", 1, -1)
-}
-for (j in 1:9)
-  hardata[, j]=as.numeric(coded(hardata[, j]))
-
-#linear regression
-hardata.lm <- lm(FTMOD ~ A*B*C*D*E*F*G*H*J, hardata)
-
-#alias
-#alias(hardata.lm)
-
-#half normal probability plot
-qqnorm(aov(FTMOD ~ A*B*C*D*E*F*G*H*J, fraction.hardata), label = TRUE)#F and D
-```
-
 \textbf{(c) Fit an appropriate model using the factors identified in
 part (b) above.}
 
 ```{r}
-#Refined Model
-hardata.lm2 <- lm(FTMOD ~ D*F, hardata)
-summary(hardata.lm2)
+
 ```
 
 \textbf{(d) Plot the residuals from this model versus the predicted
@@ -346,10 +313,7 @@ number of defects. Also, prepare a normal probability plot of the residuals. Com
 these plots.}
 
 ```{r}
-#Residual Analysis
-res = hardata$FTMOD - fitted(hardata.lm2)
-qqPlot(res)
-plot(fitted(hardata.lm2), res)
+
 ```
 
 \textbf{(e) In part (d) you should have noticed an indication that
@@ -365,6 +329,25 @@ on your results. Specifically, are the residual
 plots improved?}
 
 
+```{r}
+#linear regression
+hardata.lm.sqrtc <- lm(sqrtlow.c ~ A*B*C*D*E*F*G*H*J, hardata)
+
+#alias
+#alias(hardata.lm)
+
+#half normal probability plot
+qqnorm(aov(sqrtlow.c ~ A*B*C*D*E*F*G*H*J, fraction.hardata), label = TRUE)#F and D
+
+#Refined Model
+hardata.lm.sqrtc2 <- lm(sqrtlow.c ~ D*F, hardata)
+summary(hardata.lm.sqrtc2)
+
+#Residual Analysis
+res = hardata$sqrtlow.c - fitted(hardata.lm.sqrtc2)
+qqPlot(res)
+plot(fitted(hardata.lm.sqrtc2), res)
+```
 
 \textbf{(f) There is a modification to the square root transformation,
 proposed by Freeman and Tukey
@@ -378,3 +361,24 @@ discussion and analysis of this experiment, refer to
 "Analysis of Factorial Experiments with Defects or Defectives as the Response," by S. Bisgaard and H.
 T. Fuller, Quality Engineering, Vol. 7, 1994-95,
 pp. 429-443.)}
+
+```{r}
+#linear regression
+hardata.lm <- lm(FTMOD ~ A*B*C*D*E*F*G*H*J, hardata)
+
+#alias
+#alias(hardata.lm)
+
+#half normal probability plot
+qqnorm(aov(FTMOD ~ A*B*C*D*E*F*G*H*J, fraction.hardata), label = TRUE)#F and D
+
+#Refined Model
+hardata.lm2 <- lm(FTMOD ~ D*F, hardata)
+summary(hardata.lm2)
+
+#Residual Analysis
+res = hardata$FTMOD - fitted(hardata.lm2)
+qqPlot(res)
+plot(fitted(hardata.lm2), res)
+```
+
